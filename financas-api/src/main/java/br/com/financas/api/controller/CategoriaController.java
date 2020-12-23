@@ -72,6 +72,13 @@ public class CategoriaController {
 	public void deletarCategoria(@PathVariable Long id) {
 		categoriaService.deletarCategoria(id);
 	}
+
+	@GetMapping("/obterDescricao/{descricao}")
+	@ApiOperation(value = "Buscar Categorias pela Descrição")
+	public ResponseEntity< List<CategoriaDTO> > obterCategoriaDescricao(@PathVariable String descricao){
+		List<CategoriaDTO> dtoList = categoriaService.obterPorDescricao(descricao);
+		return dtoList == null ? ResponseEntity.notFound().build()  : ResponseEntity.ok(dtoList);
+	}
 	
 
 }

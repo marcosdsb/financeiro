@@ -50,7 +50,7 @@ public class CategoriaServiceTest {
 
         Mockito.when(repository.findAll()).thenReturn(list);
 
-        Mockito.when(repository.findByDescricaoContaining("er")).thenReturn(list);
+        Mockito.when(repository.findByDescricaoContainingIgnoreCase("er")).thenReturn(list);
 
         Mockito.when(repository.findById(1L)).thenReturn(java.util.Optional.of(entity));
 

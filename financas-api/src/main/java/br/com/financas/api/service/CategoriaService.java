@@ -78,7 +78,7 @@ public class CategoriaService {
 	}
 
 	public List<CategoriaDTO> obterPorDescricao(String descricao) {
-		List<CategoriaEntity> entityList = categoriaRepository.findByDescricaoContaining(descricao);
+		List<CategoriaEntity> entityList = categoriaRepository.findByDescricaoContainingIgnoreCase(descricao);
 		if(entityList.isEmpty()){
 			return null;
 		}
