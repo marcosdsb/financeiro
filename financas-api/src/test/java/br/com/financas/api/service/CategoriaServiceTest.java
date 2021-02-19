@@ -2,13 +2,12 @@ package br.com.financas.api.service;
 
 import br.com.financas.api.dto.CategoriaDTO;
 import br.com.financas.api.entity.CategoriaEntity;
+import br.com.financas.api.mapper.CategoriaMapper;
 import br.com.financas.api.repository.CategoriaRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -54,6 +53,9 @@ public class CategoriaServiceTest {
 
         Mockito.when(repository.findById(1L)).thenReturn(java.util.Optional.of(entity));
 
+        Mockito.when(repository.save(entity)).thenReturn(entity);
+
+
     }
 
     @Test
@@ -65,7 +67,7 @@ public class CategoriaServiceTest {
     }
 
     @Test
-    public void deveRetornarNull_QuandoObterTodasCategorias(){
+    public void deve_retornar_null(){
         List<CategoriaDTO> dtos = categoriaService.obterTodasCategorias();
         dtos = null;
         Assert.assertNull(dtos);
@@ -84,6 +86,38 @@ public class CategoriaServiceTest {
         List<CategoriaDTO> dtoList = categoriaService.obterPorDescricao(descricao);
         dtoList = null;
         Assert.assertNull(dtoList);
+    }
+
+    @Test
+    public void deve_retornar_categoriaDTO_salva(){
+
+        CategoriaDTO categoriaDTO = new CategoriaDTO();
+        categoriaDTO.setDescricao("Padaria");
+
+        CategoriaDTO dto = categoriaService.gravarNovaCategoria(categoriaDTO);
+
+        CategoriaEntity entity = CategoriaMapper.INSTANCE.converterDtoEntity(categoriaDTO);
+
+        CategoriaDTO categoriaDTOSalva = CategoriaMapper.INSTANCE.fromCategoriaDTO(entity);
+
+        Assert.assertNotNull(categoriaDTOSalva);
+
+    }
+
+    @Test
+    public void deve_retornar_categoriaDTO_atualizada(){
+
+        CategoriaDTO categoriaDTO = new CategoriaDTO();
+        categoriaDTO.setId(1L);
+        categoriaDTO.setDescricao("Serviços");
+
+        CategoriaDTO dto = categoriaService.gravarNovaCategoria(categoriaDTO);
+
+        CategoriaEntity entity = CategoriaMapper.INSTANCE.converterDtoEntity(categoriaDTO);
+
+        CategoriaDTO categoriaDTOSalva = CategoriaMapper.INSTANCE.fromCategoriaDTO(entity);
+
+        Assert.assertNotNull(categoriaDTOSalva);
     }
 
 

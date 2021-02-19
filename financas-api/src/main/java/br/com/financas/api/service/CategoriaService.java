@@ -44,13 +44,13 @@ public class CategoriaService {
 		return CategoriaMapper.INSTANCE.fromCategoriaDTO(categoriaSalva);
 	}
 
-	public CategoriaDTO bucarCategoriaPorId(Long id) {
+	public CategoriaEntity bucarCategoriaPorId(Long id) {
 		Optional<CategoriaEntity> entity = categoriaRepository.findById(id);
 		if(!entity.isPresent()) {
 			return null;
 		}
-		CategoriaDTO categoriaDTO = CategoriaMapper.INSTANCE.fromCategoriaDTO(entity.get());
-		return categoriaDTO;
+//		CategoriaDTO categoriaDTO = CategoriaMapper.INSTANCE.fromCategoriaDTO(entity.get());
+		return entity.get();
 	}
 
 	public CategoriaDTO atualizarCategoria(Long id, CategoriaDTO categoriaDTO) {

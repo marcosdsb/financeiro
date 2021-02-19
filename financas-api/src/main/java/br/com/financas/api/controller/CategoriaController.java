@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import br.com.financas.api.entity.CategoriaEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,9 @@ public class CategoriaController {
 	
 	@GetMapping("/{id}")
 	@ApiOperation(value = "Retorna uma categoria por ID")
-	public ResponseEntity<CategoriaDTO> bucarCategoriaPorId(@PathVariable Long id){
+	public ResponseEntity<CategoriaEntity> bucarCategoriaPorId(@PathVariable Long id){
 		
-		CategoriaDTO categoriaDTO = categoriaService.bucarCategoriaPorId(id);
+		CategoriaEntity categoriaDTO = categoriaService.bucarCategoriaPorId(id);
 		
 		return categoriaDTO != null ? ResponseEntity.ok(categoriaDTO) : ResponseEntity.noContent().build();
 		
